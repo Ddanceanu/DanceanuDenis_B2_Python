@@ -13,6 +13,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "Ddanceanu"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/Ddanceanu/DanceanuDenis_B2_Python.git",
+    "accountId": "183729db-1ae0-4fb5-aacc-1dd9b418c18a"
+  }
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 8
 }</component>
@@ -78,6 +90,7 @@
       <updated>1727789377231</updated>
       <workItem from="1727789378354" duration="2012000" />
       <workItem from="1728392432802" duration="85000" />
+      <workItem from="1730196126497" duration="47000" />
     </task>
     <servers />
   </component>
