@@ -1,33 +1,16 @@
-import random
-import os
+# This is a sample Python script.
 
-# Lista participanților
-nume = ["Andrei", "Denis", "Sabina", "Robi"]
+# Press Shift+F10 to execute it or replace it with your code.
+# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
 
-# Generăm o listă de perechi pentru Secret Santa
-perechi = nume.copy()
-random.shuffle(perechi)
 
-# Ne asigurăm că nimeni nu își trage propriul nume
-while any(nume[i] == perechi[i] for i in range(len(nume))):
-    random.shuffle(perechi)
+def print_hi(name):
+    # Use a breakpoint in the code line below to debug your script.
+    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
 
-# Dicționar cu perechile pentru Secret Santa
-secret_santa = {nume[i]: perechi[i] for i in range(len(nume))}
 
-# Funcția pentru afișarea rezultatului și ștergerea ecranului
-def afiseaza_si_sterge():
-    while True:
-        # Participantul își introduce numele
-        participant = input("Introduceți numele dvs. (sau 'exit' pentru a ieși): ")
-        if participant.lower() == 'exit':
-            break
-        elif participant in secret_santa:
-            print(f"Persoana pentru care sunteți Secret Santa este: {secret_santa[participant]}")
-            input("Apăsați Enter pentru a șterge ecranul.")
-            os.system('cls' if os.name == 'nt' else 'clear')
-        else:
-            print("Nume invalid. Încercați din nou.")
+# Press the green button in the gutter to run the script.
+if __name__ == '__main__':
+    print_hi('PyCharm')
 
-# Apelăm funcția
-afiseaza_si_sterge()
+# See PyCharm help at https://www.jetbrains.com/help/pycharm/
