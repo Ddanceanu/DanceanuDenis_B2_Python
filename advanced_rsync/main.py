@@ -1,6 +1,6 @@
 import sys
 import re
-from folder_sync import initial_sync
+from folder_sync import initial_sync, run_sync
 
 # Definim regex-uri pentru validarea locatiilor
 FTP_REGEX = r'^ftp:[a-zA-Z0-9]+:[a-zA-Z0-9]+@[a-zA-Z0-9.-]+/[a-zA-Z0-9._/-]+$'
@@ -31,6 +31,9 @@ def main():
         folder2 = loc2.split("folder:")[1]
 
     initial_sync(folder1, folder2)
+    print(f"Initial sync completed.")
+
+    run_sync(folder1, folder2)
 
 
 if __name__ == '__main__':
