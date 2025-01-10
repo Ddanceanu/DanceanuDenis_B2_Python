@@ -1,5 +1,6 @@
 import sys
 import re
+from folder_sync import initial_sync
 
 # Definim regex-uri pentru validarea locatiilor
 FTP_REGEX = r'^ftp:[a-zA-Z0-9]+:[a-zA-Z0-9]+@[a-zA-Z0-9.-]+/[a-zA-Z0-9._/-]+$'
@@ -21,11 +22,15 @@ def main():
     loc1 = sys.argv[1]
     loc2 = sys.argv[2]
 
-    if (check_location(loc1) and check_location(loc2)):
-        print("Both locations are valid.")
-    else:
+    if not (check_location(loc1) and check_location(loc2)):
         print("One or both locations are invalid.")
         sys.exit(1)
+
+    if loc1.startswith("folder:") and loc2.startswith("folder:"):
+        folder1 = loc1.split("folder:")[1]
+        folder2 = loc2.split("folder:")[1]
+
+    initial_sync(folder1, folder2)
 
 
 if __name__ == '__main__':
