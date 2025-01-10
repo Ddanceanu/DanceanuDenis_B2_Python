@@ -46,3 +46,51 @@ def copy_file(src, dst):
     os.makedirs(os.path.dirname(dst), exist_ok=True)
     shutil.copy2(src, dst)
     print(f"Copied {src} -> {dst}")
+
+
+def delete_file(path):
+    if os.path.exists(path):
+        os.remove(path)
+        print(f"Deleted {path}")
+
+
+def sync_folders(folder1, folder2):
+    files1 = list_files(folder1)
+    files2 = list_files(folder2)
+
+    # sincronizare din folder1 in 2
+    for file in files1:
+        src = os.path.join(folder1, file)
+        dst = os.path.join(folder2, file)
+
+        if file not in files2:
+            copy_file(src, dst)
+        elif os.path.getmtime(src) > os.path.getmtime(dst):
+            copy_file(src, dst)
+
+    # sincronizare din folder2 in 1
+    for file in files2:
+        src = os.path.join(folder2, file)
+        dst = os.path.join(folder1, file)
+
+        if file not in files1:
+            copy_file(src, dst)
+        elif os.path.getmtime(src) > os.path.getmtime(dst):
+            copy_file(src, dst)
+
+    # stergerea fisierelor care nu mai exista
+    for file in files1:
+        if file not in files2:
+            dst = os.path.join(folder2, file)
+            delete_file(dst)
+
+    for file in files2:
+        if file not in files1:
+            dst = os.path.join(folder1, file)
+            delete_file(dst)
+
+
+def run_sync(folder1, folder2):
+    print(f"Starting continuous sync between:\n  {folder1}\n  {folder2}")
+    while 1:
+        sync_folders(folder1, folder2)
