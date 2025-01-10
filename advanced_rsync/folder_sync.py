@@ -23,19 +23,22 @@ def initial_sync(folder1, folder2):
         dst = os.path.join(folder2, file)
 
         if file not in files2: # daca un fisier nu exista in locatia 2
-            os.makedirs(os.path.dirname(dst), exist_ok=True)
-            shutil.copy2(src, dst)
-            print(f"Copied {src} -> {dst}")
+            copy_file(src, dst)
 
     for file in files2:
         src = os.path.join(folder2, file)
         dst = os.path.join(folder1, file)
 
         if file not in files1:
-            os.makedirs(os.path.dirname(dst), exist_ok=True)
-            shutil.copy2(src, dst)
-            print(f"Copied {src} -> {dst}")
+            copy_file(src, dst)
         else: # daca fisierul exista in ambele locatii, verificam timpul
             if os.path.getmtime(src) > os.path.getmtime(dst):
                 shutil.copy2(src, dst)
                 print(f"Updated {src} -> {dst}")
+
+
+
+def copy_file(src, dst):
+    os.makedirs(os.path.dirname(dst), exist_ok=True)
+    shutil.copy2(src, dst)
+    print(f"Copied {src} -> {dst}")
