@@ -24,6 +24,10 @@ def initial_sync(folder1, folder2):
 
         if file not in files2: # daca un fisier nu exista in locatia 2
             copy_file(src, dst)
+        else:
+            if os.path.getmtime(src) > os.path.getmtime(dst):
+                shutil.copy2(src, dst)
+                print(f"Updated {src} -> {dst}")
 
     for file in files2:
         src = os.path.join(folder2, file)
