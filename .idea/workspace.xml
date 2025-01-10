@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8c98c35d-ccbc-4f68-8d80-79c5739a0bd4" name="Changes" comment="" />
+    <list default="true" id="8c98c35d-ccbc-4f68-8d80-79c5739a0bd4" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/Lab7/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Lab7/main.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -13,18 +15,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "Ddanceanu"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Ddanceanu&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/Ddanceanu/DanceanuDenis_B2_Python.git",
-    "accountId": "183729db-1ae0-4fb5-aacc-1dd9b418c18a"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Ddanceanu/DanceanuDenis_B2_Python.git&quot;,
+    &quot;accountId&quot;: &quot;183729db-1ae0-4fb5-aacc-1dd9b418c18a&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 8
 }</component>
@@ -91,6 +93,7 @@
       <workItem from="1727789378354" duration="2012000" />
       <workItem from="1728392432802" duration="85000" />
       <workItem from="1730196126497" duration="47000" />
+      <workItem from="1734524814954" duration="29000" />
     </task>
     <servers />
   </component>
