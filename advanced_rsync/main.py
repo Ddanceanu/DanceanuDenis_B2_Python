@@ -32,7 +32,6 @@ def main():
 
     initial_sync(folder1, folder2)
     print(f"Initial sync completed.")
-
     run_sync(folder1, folder2)
 
 
