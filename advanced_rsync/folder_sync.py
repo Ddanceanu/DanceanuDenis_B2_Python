@@ -3,6 +3,15 @@ import shutil
 import time
 
 def list_files(path):  # creeaza o lista cu toate fisierele (cai relative) dintr-un director
+    """
+    Creeaza o lista cu toate caile relative ale fisierelor dintr-un director.
+
+    Argumente:
+        path (str): Calea catre director.
+
+    Returnează:
+        list: O lista cu toate caile relative existente in director, inclusiv subdirectoare, etc.
+    """
     file_paths = []
     for root, dirs, files in os.walk(path):
         for filename in files:
@@ -12,16 +21,47 @@ def list_files(path):  # creeaza o lista cu toate fisierele (cai relative) dintr
     return file_paths
 
 def copy_file(src, dst):
+    """
+    Copiaza un fisier dintr-o sursa intr-o anumita destinatie. Daca directorul nu exista, il creaza.
+
+    Argumente:
+        src (str): Calea completa catre fisierul sursa.
+        dst (str): Calea completa unde va fi pus fisierul.
+
+    Acțiuni:
+        Copiaza fisierele lipsa la o anumita destinatie.
+    """
     os.makedirs(os.path.dirname(dst), exist_ok=True)
     shutil.copy2(src, dst)
     print(f"Copied {src} -> {dst}")
 
 def delete_file(path):
+    """
+       Sterge un fisier existent.
+
+       Argumente:
+           path (str): path-ul catre fisierul ca va fi sters.
+
+       Acțiuni:
+           Sterge un fisier specificat.
+       """
     if os.path.exists(path):
         os.remove(path)
         print(f"Deleted {path}")
 
 def initial_sync(folder1, folder2):  # sincronizare initiala intre fisiere
+    """
+        Sincronizeaza initial doua directoare.
+
+        Argumente:
+            folder1 (str): calea catre primul director
+            folder2 (str): calea catre al doilea director
+
+        Acțiuni:
+            - copiaza fisierele lipsa intre cele doua directoare
+            - actualizeaza fisierele din ambele directoare la cea mai recenta versiune
+            - actualizeaza listele globale cu fisiere
+        """
     global global_file_paths1, global_file_paths2  # salvam toate fisierele existente initial
     files1 = list_files(folder1)
     files2 = list_files(folder2)
@@ -48,6 +88,19 @@ def initial_sync(folder1, folder2):  # sincronizare initiala intre fisiere
     global_file_paths2 = list_files(folder2)
 
 def sync_folders(folder1, folder2):
+    """
+       Sicronizeaza continuu cele doua foldere specificate.
+
+       Argumente:
+           folder1 (str): path-ul catre primul folder.
+           folder2 (str): path-ul catre al doilea folder.
+
+       Acțiuni:
+           - sterge fisierele care au primit delete din ambele fisiere.
+           - copiaza fisierele lipsa intre cele doua directoare
+           - actualizeaza fisierele din ambele directoare la cea mai recenta versiune
+           - actualizeaza listele globale cu fisiere
+       """
     global global_file_paths1, global_file_paths2
 
     # verificam daca s-a sters un fisier din folder1
@@ -103,6 +156,17 @@ def sync_folders(folder1, folder2):
     global_file_paths2 = list_files(folder2)
 
 def run_sync(folder1, folder2):
+    """
+        Initiaza sincronzizarea initiala, si apoi mentine sincronizate cele doua directoare.
+
+        Argumente:
+           folder1 (str): path-ul catre primul folder.
+           folder2 (str): path-ul catre al doilea folder.
+
+        Acțiuni:
+            - realizeaza sincronizarea initiala folosind functia "initial_sync"
+            - ruleaza sincronizarea continua prin functia sync_folders la inteval de o secunda
+        """
     initial_sync(folder1, folder2)
     print(f"Starting continuous sync between:\n  {folder1}\n  {folder2}")
     while True:
