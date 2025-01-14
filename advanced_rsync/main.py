@@ -1,9 +1,9 @@
 import sys
 import re
-from folder_sync import initial_sync, run_sync
-from zip_sync import run_sync
+from folder_sync import initial_sync, run_sync as folder_run_sync
+from zip_sync import run_sync as zip_run_sync
 
-# Definim regex-uri pentru validarea locatiilor
+# Definim regex-uri pentru validarea locațiilor
 FTP_REGEX = r'^ftp:[a-zA-Z0-9]+:[a-zA-Z0-9]+@[a-zA-Z0-9.-]+/[a-zA-Z0-9._/-]+$'
 ZIP_REGEX = r'^zip:[a-zA-Z]:\\[\\a-zA-Z0-9._-]+\.zip$'
 FOLDER_REGEX = r'^folder:[a-zA-Z]:\\[\\a-zA-Z0-9._-]+$'
@@ -16,12 +16,26 @@ def check_location(loc):
         loc (str): locatia de verificat.
 
     Returnează:
-        bool: true pentur locatie valoda, false altfel.
+        bool: true pentru locatie valida, false altfel.
     """
-    if re.match(FTP_REGEX, loc) or re.match(ZIP_REGEX, loc) or re.match(FOLDER_REGEX, loc):
-        return True;
+    return bool(re.match(FTP_REGEX, loc) or re.match(ZIP_REGEX, loc) or re.match(FOLDER_REGEX, loc))
+
+def parse_location(loc):
+    """
+    Extrage tipul si calea din locatie.
+
+    Argumente:
+        loc (str): locatia de procesat.
+
+    Returnează:
+        tuple: (tip_locatie, cale_locatie)
+    """
+    if loc.startswith("zip:"):
+        return "zip", loc.split("zip:")[1]
+    elif loc.startswith("folder:"):
+        return "folder", loc.split("folder:")[1]
     else:
-        return False;
+        return None, None
 
 def main():
     print("Advanced RSync")
@@ -36,27 +50,26 @@ def main():
         print("One or both locations are invalid.")
         sys.exit(1)
 
-    if loc1.startswith("zip:") and loc2.startswith("folder:"):
-        zip_path = loc1.split("zip:")[1]
-        folder_path = loc2.split("folder:")[1]
-        print(f"Snycing ZIP: {zip_path} with folder: {folder_path}")
-        run_sync(zip_path, folder_path)
+    type1, path1 = parse_location(loc1)
+    type2, path2 = parse_location(loc2)
 
-    elif loc2.startswith("zip:") and loc1.startswith("folder:"):
-        zip_path = loc2.split("zip:")[1]
-        folder_path = loc1.split("folder:")[1]
-        print(f"Snycing ZIP: {zip_path} with folder: {folder_path}")
-        run_sync(zip_path, folder_path)
+    if type1 == "zip" and type2 == "folder":
+        print(f"Syncing ZIP: {path1} with folder: {path2}")
+        zip_run_sync(path1, path2)
 
+    elif type1 == "folder" and type2 == "zip":
+        print(f"Syncing folder: {path1} with ZIP: {path2}")
+        zip_run_sync(path2, path1)
 
-    # if loc1.startswith("folder:") and loc2.startswith("folder:"):
-    #     folder1 = loc1.split("folder:")[1]
-    #     folder2 = loc2.split("folder:")[1]
-    #
-    # initial_sync(folder1, folder2)
-    # print(f"Initial sync completed.")
-    # run_sync(folder1, folder2)
+    elif type1 == "folder" and type2 == "folder":
+        print(f"Syncing folder: {path1} with folder: {path2}")
+        initial_sync(path1, path2)
+        print("Initial sync completed.")
+        folder_run_sync(path1, path2)
 
+    else:
+        print("Unsupported sync operation between the provided locations.")
+        sys.exit(1)
 
 if __name__ == '__main__':
     main()
