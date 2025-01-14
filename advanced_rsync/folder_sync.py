@@ -32,7 +32,7 @@ def copy_file(src, dst):
         Copiaza fisierele lipsa la o anumita destinatie.
     """
     os.makedirs(os.path.dirname(dst), exist_ok=True)
-    shutil.copy2(src, dst)
+    shutil.copy2(src, dst) # copy2 pastreaza si metadatele fisierului
     print(f"Copied {src} -> {dst}")
 
 def delete_file(path):
