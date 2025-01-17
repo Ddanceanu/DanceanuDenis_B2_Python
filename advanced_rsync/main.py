@@ -53,7 +53,11 @@ def main():
     type1, path1 = parse_location(loc1)
     type2, path2 = parse_location(loc2)
 
-    if type1 == "zip" and type2 == "folder":
+    if type1 == "zip" and type2 == "zip":
+        print(f"Syncing ZIP: {path1} with ZIP: {path2}")
+        zip_run_sync(path1, path2)
+
+    elif type1 == "zip" and type2 == "folder":
         print(f"Syncing ZIP: {path1} with folder: {path2}")
         zip_run_sync(path1, path2)
 
